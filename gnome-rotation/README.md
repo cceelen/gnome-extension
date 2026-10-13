@@ -21,7 +21,7 @@ then reports a panel orientation). On such a machine the extension turns the
 picture wrongly. The compositor (mutter) knows the panel orientation, but up to
 GNOME 51 it gives it neither to extensions nor over D-Bus (`GetCurrentState`).
 
-It needs GNOME Shell 45 to 51 (only 50 is tested) and `iio-sensor-proxy`, which
+It needs GNOME Shell 45 to 50 (only 50 is tested) and `iio-sensor-proxy`, which
 gives the orientation. On a machine without a built-in screen, the extension
 does nothing.
 
