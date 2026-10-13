@@ -1,0 +1,35 @@
+# Once a day: the token that the release relies on, so that its expiry shows
+# as a red run, not as a failed release. The summary of the run has the
+# details.
+name: doctor
+
+on:
+  schedule:
+    - cron: "37 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  # A token that expires within this many days fails the check.
+  DAYS: "21"
+
+jobs:
+  # The fine-grained token of GitHub: GitHub gives the expiry in a header of
+  # each answer. A token without an expiry passes.
+  github-token:
+    runs-on: ubuntu-26.04
+    steps:
+      - env:
+          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        run: |
+          if [ -z "$RELEASE_TOKEN" ]; then echo "::error::RELEASE_TOKEN is not set"; exit 1; fi
+          headers=$(curl -sS -o /dev/null -D - -w '%{http_code}' -H "Authorization: Bearer $RELEASE_TOKEN" "https://api.github.com/repos/$GITHUB_REPOSITORY")
+          status=${headers##*$'\n'}
+          if [ "$status" != 200 ]; then echo "::error::RELEASE_TOKEN is not accepted (HTTP $status)"; exit 1; fi
+          expiry=$(printf '%s\n' "$headers" | sed -n 's/^github-authentication-token-expiration: *\(.*\)\r$/\1/Ip')
+          if [ -z "$expiry" ]; then echo "RELEASE_TOKEN: no expiry" >> "$GITHUB_STEP_SUMMARY"; exit 0; fi
+          left=$(( ($(date -d "$expiry" +%s) - $(date +%s)) / 86400 ))
+          echo "RELEASE_TOKEN: expires $expiry, in $left days" >> "$GITHUB_STEP_SUMMARY"
+          if [ "$left" -lt "$DAYS" ]; then echo "::error::RELEASE_TOKEN expires in $left days ($expiry): renew it"; exit 1; fi

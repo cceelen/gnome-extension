@@ -1,0 +1,103 @@
+# A release has one manual step: start this workflow ("Run workflow").
+#
+# That run opens the release pull request: the next version in the two
+# metadata.json files (version-name) and the new section of CHANGELOG.md,
+# from the commit titles since the last release. It sets the pull request to
+# merge by itself when the checks are green.
+#
+# The merge starts this workflow again. That run makes the two zips and the
+# source archive, attests them, attaches them to the draft release and
+# publishes the release. The tag is made at publication, when the files are
+# there. The upload of the zips to extensions.gnome.org is done by hand.
+#
+# RELEASE_TOKEN is a personal access token of the maintainer for this
+# repository. What the default token does starts no checks and no workflow.
+name: release
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+# One run at a time, in order: a release is not cancelled.
+concurrency:
+  group: release
+  cancel-in-progress: false
+permissions:
+  contents: read
+jobs:
+  pull-request:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-26.04
+    env:
+      GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      # Release Please sets version-name in the metadata.json files
+      # (extra-files of release-please-config.json).
+      - uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        with:
+          token: ${{ secrets.RELEASE_TOKEN }}
+          skip-github-release: true
+      - run: |
+          # The list of open pull requests, not a search: a search does not
+          # find a pull request in the first seconds after it is opened. The
+          # list also has pull requests from forks, whose branch can have the
+          # same name: only a branch of this repository is the release branch.
+          pr=$(gh api "repos/${GH_REPO}/pulls?state=open&per_page=100" --jq "[.[] | select(.head.repo.full_name == \"${GH_REPO}\" and (.head.ref | startswith(\"release-please--\")))][0] // empty | .number")
+          if [ -z "$pr" ]; then
+            echo "::error::No release pull request: no fix or feat was merged since the last release."
+            exit 1
+          fi
+          gh pr merge "$pr" --auto --squash
+  # Makes the draft release if the push is the merge of a release pull
+  # request; does nothing for every other push.
+  release:
+    if: ${{ github.event_name == 'push' }}
+    runs-on: ubuntu-26.04
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+    steps:
+      - uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        id: release
+        with:
+          token: ${{ secrets.RELEASE_TOKEN }}
+          skip-github-pull-request: true
+  release-files:
+    needs: release
+    if: ${{ needs.release.outputs.release_created == 'true' }}
+    uses: ./.github/workflows/release-files.yml
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+      artifact-metadata: write
+    with:
+      release: true
+  # Releases are immutable: every file must be on the draft before it is
+  # published. GitHub attests the release, with its files, at publication.
+  publish:
+    needs: [release, release-files]
+    runs-on: ubuntu-26.04
+    env:
+      GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+      GH_REPO: ${{ github.repository }}
+      TAG: ${{ needs.release.outputs.tag_name }}
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: release-*
+          path: release
+          merge-multiple: true
+      # The check a user makes before the upload to extensions.gnome.org,
+      # with the attestation API and with the bundle of the release page.
+      - run: |
+          for f in release/*.zip release/*.tar.gz; do
+            gh attestation verify "$f" --repo "$GH_REPO" \
+              --signer-workflow "$GH_REPO/.github/workflows/release-files.yml" \
+              --source-ref "$GITHUB_REF"
+            gh attestation verify "$f" --bundle "$f.intoto.jsonl" --repo "$GH_REPO" \
+              --signer-workflow "$GH_REPO/.github/workflows/release-files.yml" \
+              --source-ref "$GITHUB_REF"
+          done
+      - run: gh release upload "$TAG" release/*
+      - run: gh release edit "$TAG" --draft=false

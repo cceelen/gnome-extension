@@ -1,9 +1,9 @@
-# gnome-shell-extension-asus-zenbook-duo-ux8406-keys
+# Zenbook Duo keys
 
 **A GNOME Shell extension for the ASUS Zenbook Duo UX8406. It gives a function
 to two keys of the keyboard that need the desktop, and gives each touchscreen
-its screen. Enable it one time after the installation; the keys need the
-keyboard package.**
+its screen. The keys need the keyboard package from
+[asus-zenbook-duo-ux8406](https://github.com/cceelen/asus-zenbook-duo-ux8406).**
 
 ## Keys
 
@@ -12,8 +12,11 @@ keyboard package.**
   on the lower screen, the key does nothing.
 - F8 swaps the windows of the two screens.
 
-The package [asus-zenbook-duo-ux8406-keyboard-bpf](../keyboard-bpf/README.md) is
-necessary: it makes the keyboard send these keys, as `XF86Launch9` and `F19`.
+The package
+[asus-zenbook-duo-ux8406-keyboard-bpf](https://github.com/cceelen/asus-zenbook-duo-ux8406/blob/main/keyboard-bpf/README.md)
+is necessary: it makes the keyboard send these keys, as `XF86Launch9` and `F19`.
+It is a HID-BPF program, which only the package manager of your distribution can
+install. The extension cannot install it.
 
 ## Touch
 
@@ -37,12 +40,23 @@ Touch is tested on the UX8406CA. The pens are not tested.
 
 ## Use
 
-Install the package (refer to the [README](../README.md#installation)), log in
-again, then enable the extension:
+Install the extension from extensions.gnome.org, or with the zip of a
+[release](https://github.com/cceelen/gnome-extension/releases):
+
+```sh
+gnome-extensions install asus-zenbook-duo-ux8406-keys@cceelen.github.io.shell-extension.zip
+```
+
+Log in again, then enable the extension:
 
 ```sh
 gnome-extensions enable asus-zenbook-duo-ux8406-keys@cceelen.github.io
 ```
+
+For the keys, install the keyboard package: the
+[README of asus-zenbook-duo-ux8406](https://github.com/cceelen/asus-zenbook-duo-ux8406#installation)
+tells how. A distribution package of this extension from that project has the
+same UUID; remove it.
 
 On a machine that is not a UX8406, the extension binds no key and sets nothing.
 
@@ -51,13 +65,13 @@ GNOME Shell 45 to 51 is declared. Only GNOME Shell 50 is tested.
 ## Test
 
 ```sh
-meson test -C build --suite gnome-keys
+node --test gnome-keys/tests/*.test.js
 ```
 
 `layout.js` and `touch.js` have the logic and no GNOME imports; `display.js`
 calls `org.gnome.Mutter.DisplayConfig`. For the files that the two extensions
 share, and for an installation from the tree, refer to
-[CONTRIBUTING.md](../CONTRIBUTING.md#an-extension-without-a-package).
+[CONTRIBUTING.md](../CONTRIBUTING.md#an-extension-from-the-tree).
 
 `tests/verify.js` is a manual check in a GNOME session. It asks Mutter to verify
 the current layout and the layout that the key requests. It applies nothing.

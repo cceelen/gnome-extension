@@ -1,0 +1,77 @@
+# Makes the files of a release: the zip of each extension, which goes to
+# extensions.gnome.org, and the source archive. With `release: true` it
+# attests them, and adds the Sigstore bundle of the provenance
+# (<file>.intoto.jsonl) for each file.
+# Reusable, so that a caller cannot add steps to the build or signing jobs.
+name: release-files
+on:
+  workflow_call:
+    inputs:
+      release:
+        description: Attest the files. Only release.yml sets it.
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  files:
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - run: >-
+          sudo apt-get update -q && sudo apt-get install -qy --no-install-recommends
+          libglib2.0-bin zip
+      # The time of the commit in the zips: the same tree gives the same zip.
+      - run: |
+          build-aux/pack.sh gnome-keys release
+          build-aux/pack.sh gnome-rotation release
+          version=$(jq -r '."."' .release-please-manifest.json)
+          git archive --format=tar.gz --prefix="gnome-extension-$version/" \
+            -o "release/gnome-extension-$version.tar.gz" HEAD
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          # release-*: release.yml puts these files on the release.
+          name: release-files
+          path: release/*
+          if-no-files-found: error
+          compression-level: 0
+  # Alone with the right to sign, and it runs nothing that the build made.
+  attest:
+    if: ${{ inputs.release }}
+    needs: files
+    runs-on: ubuntu-26.04
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+      artifact-metadata: write
+    steps:
+      # download-artifact checks each file against the digest recorded at
+      # upload.
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: release-files
+          path: files
+      - id: attest
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
+        with:
+          subject-path: files/*
+      # The Sigstore bundle of the provenance, for the release page:
+      # <file>.intoto.jsonl, one bundle on one line, as `gh attestation
+      # download` writes it. `gh attestation verify --bundle` checks it
+      # without the attestation API. One bundle has all the subjects.
+      - env:
+          BUNDLE: ${{ steps.attest.outputs.bundle-path }}
+        run: |
+          mkdir provenance
+          for f in files/*; do
+            cp "$BUNDLE" "provenance/${f##*/}.intoto.jsonl"
+          done
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          # release-*: release.yml puts these files on the release.
+          name: release-provenance
+          path: provenance/*.intoto.jsonl
+          if-no-files-found: error

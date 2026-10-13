@@ -1,0 +1,54 @@
+name: Report
+description: Tell us if an extension operates on your laptop, or report a problem.
+body:
+  - type: dropdown
+    id: extension
+    attributes:
+      label: Extension
+      options:
+        - Built-in screen rotation
+        - Zenbook Duo keys
+    validations:
+      required: true
+  - type: input
+    id: model
+    attributes:
+      label: Laptop model
+      description: "`cat /sys/class/dmi/id/product_name`"
+    validations:
+      required: true
+  - type: input
+    id: system
+    attributes:
+      label: Distribution and GNOME Shell version
+      description: "For example: Fedora 44, GNOME Shell 50.1 (`gnome-shell --version`)"
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Extension version
+      description: "`gnome-extensions info <uuid>`, and whether it is from extensions.gnome.org, a release zip or a distribution package"
+    validations:
+      required: true
+  - type: dropdown
+    id: keyboard
+    attributes:
+      label: For Zenbook Duo keys, is the keyboard package installed?
+      options:
+        - Not applicable
+        - "Yes"
+        - "No"
+  - type: textarea
+    id: result
+    attributes:
+      label: What operates and what does not
+      description: Describe what you did, what you expected and what occurred.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: The output of the commands in CONTRIBUTING.md, "Report a problem".
+      render: text

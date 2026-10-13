@@ -1,0 +1,84 @@
+# pre-commit (https://pre-commit.com): `pre-commit install` once, then the
+# hooks run at each commit. `pre-commit run --all-files` runs them on the tree.
+exclude: |
+  (?x)^(
+    LICENSES/|
+    .*/tests/fixtures/|
+    CHANGELOG\.md$
+  )
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: check-yaml
+      - id: check-toml
+      - id: check-json
+      - id: check-xml
+      - id: check-merge-conflict
+      - id: check-added-large-files
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.0
+    hooks:
+      # The changes of a commit, at the commit.
+      - id: gitleaks
+      # Every commit of the history, which a checkout in CI has no staged
+      # changes of: `pre-commit run gitleaks-history --hook-stage manual`.
+      - id: gitleaks
+        alias: gitleaks-history
+        name: Detect hardcoded secrets in all commits
+        entry: gitleaks git --redact --verbose
+        stages: [manual]
+  - repo: https://github.com/crate-ci/typos
+    rev: v1.50.3
+    hooks:
+      - id: typos
+        # Report only: its corrections are not always right.
+        args: [--force-exclude]
+  - repo: https://github.com/executablebooks/mdformat
+    rev: 1.0.0
+    hooks:
+      - id: mdformat
+        # --number: 1. 2. 3. in the source, as the reader of the plain file sees it.
+        args: [--wrap, "80", --number]
+        additional_dependencies: [mdformat-gfm]
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.23.3
+    hooks:
+      - id: markdownlint-cli2
+  - repo: https://github.com/biomejs/pre-commit
+    rev: v2.5.15
+    hooks:
+      - id: biome-check
+        files: ^(gnome-(common|keys|rotation)|tests)/.*\.js$
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.11.0.1
+    hooks:
+      # The pack script and the Shell test.
+      - id: shellcheck
+        args: [--external-sources]
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.12
+    hooks:
+      - id: actionlint
+  - repo: https://github.com/fsfe/reuse-tool
+    rev: v6.2.0
+    hooks:
+      - id: reuse
+  - repo: local
+    hooks:
+      # The release pull request sets version-name in the two metadata.json
+      # files from the manifest; a change by hand must keep them the same.
+      - id: versions
+        name: one version in all files
+        entry: >-
+          sh -c 'v=$(sed -n "s/^ *\"\\.\": *\"\\(.*\\)\"$/\\1/p" .release-please-manifest.json);
+          for f in gnome-keys/extension/metadata.json gnome-rotation/extension/metadata.json; do
+          grep -q "\"version-name\": \"$v\"" "$f" || { echo "$f: version-name is not $v"; exit 1; }; done'
+        language: system
+        pass_filenames: false
+        always_run: true

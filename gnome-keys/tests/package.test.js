@@ -1,6 +1,5 @@
-// The extension's metadata must agree with the directory the build installs
-// it under (meson.build passes that uuid as EXTENSION_UUID) and with the
-// GSettings schema it ships.
+// The extension's metadata must be what extensions.gnome.org takes and agree
+// with the GSettings schema it ships.
 import assert from 'node:assert/strict';
 import {readdirSync, readFileSync} from 'node:fs';
 import {test} from 'node:test';
@@ -9,10 +8,13 @@ const root = new URL('../', import.meta.url);
 const read = (path) => readFileSync(new URL(path, root), 'utf8');
 const metadata = JSON.parse(read('extension/metadata.json'));
 
-test('metadata.json carries the uuid the build installs under', () => {
-    const uuid = process.env.EXTENSION_UUID;
-    assert.ok(uuid, 'EXTENSION_UUID is not set; run the tests with `meson test`');
-    assert.equal(metadata.uuid, uuid);
+test('metadata.json links the repository for problem reports', () => {
+    assert.equal(metadata.url, 'https://github.com/cceelen/gnome-extension');
+});
+
+test('metadata.json has no version: extensions.gnome.org sets it', () => {
+    assert.equal(metadata.version, undefined);
+    assert.match(metadata['version-name'], /^[0-9]+\.[0-9]+\.[0-9]+$/);
 });
 
 test('metadata.json lists the supported shell versions', () => {

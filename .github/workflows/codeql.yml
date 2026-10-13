@@ -1,0 +1,44 @@
+# CodeQL: static analysis of the extensions, the tests and the workflows. The
+# findings go to code scanning (Security tab).
+name: codeql
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  # New queries find things in code that did not change.
+  schedule:
+    - cron: "23 4 * * 3"
+
+# A newer push to a pull request makes the older run pointless. On main,
+# each commit is scanned to the end, in a group of its own (a shared group
+# would still drop a waiting run): a cancelled run is a commit without scan.
+concurrency:
+  group: codeql-${{ github.event_name == 'pull_request' && github.ref || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    runs-on: ubuntu-26.04
+    permissions:
+      contents: read
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [actions, javascript-typescript]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # build-mode none: CodeQL reads the sources; nothing is built.
+      - uses: github/codeql-action/init@24c54180a607b1449ed407dd24f251e4e9147c8d # v4.38.3
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: none
+      - uses: github/codeql-action/analyze@24c54180a607b1449ed407dd24f251e4e9147c8d # v4.38.3
+        with:
+          category: /language:${{ matrix.language }}

@@ -1,4 +1,4 @@
-# gnome-shell-extension-builtin-screen-rotation
+# Built-in screen rotation
 
 **A GNOME Shell extension that turns the built-in screens when the laptop stands
 on its side, also with a keyboard, a touchpad or a mouse connected. It is made
@@ -39,10 +39,16 @@ the extension does nothing.
 
 ## Use
 
-Install the package `gnome-shell-extension-builtin-screen-rotation`: the
-[README](../README.md#installation) tells how to add the repository for your
-distribution. You do not need the other packages. Log in again, then enable the
-extension:
+Install the extension from extensions.gnome.org, or with the zip of a
+[release](https://github.com/cceelen/gnome-extension/releases):
+
+```sh
+gnome-extensions install builtin-screen-rotation@cceelen.github.io.shell-extension.zip
+```
+
+A distribution package of this extension from
+[asus-zenbook-duo-ux8406](https://github.com/cceelen/asus-zenbook-duo-ux8406)
+has the same UUID; remove it. Log in again, then enable the extension:
 
 ```sh
 gnome-extensions enable builtin-screen-rotation@cceelen.github.io
@@ -69,13 +75,13 @@ sudo systemctl stop iio-sensor-proxy
 ## Test
 
 ```sh
-meson test -C build --suite gnome-rotation
+node --test gnome-rotation/tests/*.test.js
 ```
 
 `rotation.js` has the logic and no GNOME imports; `sensor.js` calls
 `net.hadess.SensorProxy`. For the files that the two extensions share, and for
 an installation from the tree, refer to
-[CONTRIBUTING.md](../CONTRIBUTING.md#an-extension-without-a-package).
+[CONTRIBUTING.md](../CONTRIBUTING.md#an-extension-from-the-tree).
 
 `tests/rotate.js` follows the orientation with the code of the extension, from
 outside GNOME Shell, and applies the layouts. Use it to try the rotation without

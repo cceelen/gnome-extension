@@ -1,0 +1,4 @@
+# typos: words that are correct here.
+[default.extend-words]
+# <file>.intoto.jsonl: in-toto attestations
+intoto = "intoto"
