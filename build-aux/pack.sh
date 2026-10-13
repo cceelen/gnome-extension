@@ -2,7 +2,7 @@
 # Makes the zip of one extension for extensions.gnome.org and for the release
 # page: <uuid>.shell-extension.zip, the name that `gnome-extensions pack`
 # gives. In it: the files of <extension>/extension/ with the links to
-# gnome-common/ followed, the compiled schema, and LICENSE. Tests, READMEs and
+# gnome-common/ followed, and LICENSE. Tests, READMEs, the compiled schema and
 # tools stay out, as the review guidelines ask.
 #
 # The zip is the same for the same tree: the files are in one order, with the
