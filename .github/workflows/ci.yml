@@ -53,6 +53,19 @@ jobs:
       - run: |
           build-aux/pack.sh gnome-keys dist
           build-aux/pack.sh gnome-rotation dist
+      # The checks that extensions.gnome.org makes on an upload: an error
+      # there holds the review, so it fails here first.
+      - run: |
+          python3 -m venv "$RUNNER_TEMP/shexli"
+          "$RUNNER_TEMP/shexli/bin/pip" install -q --require-hashes -r tests/ego/requirements.txt
+          status=0
+          for z in dist/*.zip; do
+            "$RUNNER_TEMP/shexli/bin/shexli" --format json "$z" > shexli.json
+            jq -r --arg z "$z" '.findings[] |
+              "::\(if .severity == "error" then "error" else "warning" end) title=\(.rule_id)::\($z): \(.message)"' shexli.json
+            jq -e '[.findings[] | select(.severity == "error")] | length == 0' shexli.json > /dev/null || status=1
+          done
+          exit "$status"
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: zips

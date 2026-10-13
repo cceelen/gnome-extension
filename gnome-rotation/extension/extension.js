@@ -85,7 +85,8 @@ export default class BuiltinScreenRotation extends Extension {
 
         if (!schema?.has_key(LOCK)) return;
 
-        this._settings = new Gio.Settings({settings_schema: schema});
+        // GNOME's own schema: the extension ships none, it has no settings.
+        this._settings = Gio.Settings.new_full(schema, null, null);
         this._lockChanged = this._settings.connect(`changed::${LOCK}`, () => this._watch());
         this._indicator = new SystemIndicator();
         this._switch = rotationSwitch(this._settings);
