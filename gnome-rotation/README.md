@@ -39,6 +39,68 @@ the extension does nothing.
 
 ## Use
 
+### Check the sensor first
+
+The extension does not choose a sensor. It takes the orientation that
+`iio-sensor-proxy` gives, the same one that GNOME's own rotation uses. Which
+accelerometer that is, and which way is up, is set for the whole system by udev,
+not in the extension. Check it before you install:
+
+```sh
+monitor-sensor
+```
+
+Stand the laptop on its left side, on its right side, and upright again. Each
+turn prints a line `Accelerometer orientation changed:` with `left-up`,
+`right-up` or `normal`.
+
+- **The orientation matches the laptop:** nothing to set. Install the extension.
+- **No accelerometer:** `monitor-sensor` prints `No accelerometer`. The
+  extension then shows two buttons that turn the screens by hand.
+- **The orientation is wrong** (for example `right-up` when the left side is
+  up): the accelerometer is mounted turned, and its mount matrix is wrong or
+  missing. Correct it with a local hwdb entry, below.
+- **Two accelerometers** (one in the screen, one in the base):
+  `iio-sensor-proxy` takes the one with `ACCEL_LOCATION=display`. If it takes
+  the one in the base, set `ACCEL_LOCATION=base` for that one in the same entry.
+
+To see the sensors and what udev sets for them:
+
+```sh
+for d in /sys/bus/iio/devices/iio:device*; do
+  echo "$d: $(cat "$d/name") $(cat "$d/../modalias" 2>/dev/null)"
+  udevadm info -q property "$d" | grep -E '^ACCEL_'
+done
+cat /sys/class/dmi/id/modalias
+```
+
+A local entry goes in `/etc/udev/hwdb.d/61-sensor-local.hwdb`. The first line
+matches the sensor by the modalias of its parent and the machine by its DMI
+string, both from the commands above; the format and the meaning of the matrix
+are explained at the top of systemd's
+[60-sensor.hwdb](https://github.com/systemd/systemd/blob/main/hwdb.d/60-sensor.hwdb).
+The form of an entry, for a sensor turned by 90 degrees:
+
+```text
+sensor:modalias:PARENT-MODALIAS*:dmi:*:svnVENDOR:pnPRODUCT:*
+ ACCEL_MOUNT_MATRIX=0, -1, 0; 1, 0, 0; 0, 0, 1
+```
+
+Put in the modalias of the parent and the vendor and product of your machine
+(the `svn` and `pn` parts of its DMI string), and try the matrix with
+`monitor-sensor` until the three orientations are right. Then load it (as root):
+
+```sh
+systemd-hwdb update
+udevadm trigger -v -p DEVNAME=/dev/iio:deviceX
+systemctl restart iio-sensor-proxy
+```
+
+Where the entry is right for every machine of the model, it belongs in systemd:
+the comments of `60-sensor.hwdb` say how to send it.
+
+### Install
+
 Install the extension from extensions.gnome.org, or with the zip of a
 [release](https://github.com/cceelen/gnome-extension/releases):
 
