@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.1](https://github.com/cceelen/gnome-extension/compare/v0.6.0...v0.6.1) (2026-10-13)
+
+
+### Bug Fixes
+
+* pass the automated checks of extensions.gnome.org ([#5](https://github.com/cceelen/gnome-extension/issues/5)) ([74bbe70](https://github.com/cceelen/gnome-extension/commit/74bbe70f48b901a7a65fdfbf2ef7c20f74f34425))
+
 ## [0.6.0](https://github.com/cceelen/gnome-extension/compare/v0.5.0...v0.6.0) (2026-10-13)
 
 
