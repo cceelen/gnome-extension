@@ -4,9 +4,8 @@ For the maintainer: how to make a release and how to check a file of it.
 
 ## Make a release
 
-1. On the Actions tab, select the workflow "release" and "Run workflow".
-2. When the release is published, download the two zips from the release page,
-   check them (below) and upload each to extensions.gnome.org.
+On the Actions tab, select the workflow "release" and "Run workflow". That is
+the only step by hand.
 
 The other steps occur automatically:
 
@@ -19,6 +18,10 @@ The other steps occur automatically:
   attests them, attaches them with their provenance bundles to the draft release
   and publishes the release. The tag is made at that moment. The releases are
   immutable.
+- The job `ego` uploads the two zips of the published release to
+  extensions.gnome.org with `gnome-extensions upload`, logged in with the
+  maintainer's account. A reviewer there approves each version; until then the
+  site serves the previous one.
 
 extensions.gnome.org gives each upload its own version number; `version-name`
 shows the version of this repository.
@@ -44,6 +47,10 @@ Without the attestation API, with the bundle from the release page: add
   repository: contents, pull requests and workflows, read and write),
   `CODECOV_TOKEN`, and `CLAUDE_CODE_OAUTH_TOKEN` or `ANTHROPIC_API_KEY` for the
   review.
+- An environment `extensions.gnome.org`, with deployment branches limited to
+  `main`: the variable `EGO_USER` and the secret `EGO_PASSWORD` of the
+  maintainer's account on extensions.gnome.org. The site has no tokens. The
+  upload accepts the site's terms of service (`--accept-tos`) for that account.
 - Settings: immutable releases; "Allow GitHub Actions to create and approve pull
   requests"; private vulnerability reporting; Dependabot alerts.
 - A ruleset on `main` that requires the checks of `ci.yml` and a branch that is
