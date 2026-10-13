@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/cceelen/gnome-extension/actions/workflows/ci.yml/badge.svg)](https://github.com/cceelen/gnome-extension/actions/workflows/ci.yml)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/cceelen/gnome-extension/badge)](https://scorecard.dev/viewer/?uri=github.com/cceelen/gnome-extension)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/15452/badge)](https://www.bestpractices.dev/projects/15452)
 [![codecov](https://codecov.io/github/cceelen/gnome-extension/graph/badge.svg)](https://codecov.io/github/cceelen/gnome-extension)
 [![Plumber Score](https://score.getplumber.io/github.com/cceelen/gnome-extension.svg)](https://score.getplumber.io/github.com/cceelen/gnome-extension)
 
