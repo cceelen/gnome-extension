@@ -26,10 +26,11 @@ trap 'rm -rf "$stage"' EXIT
 # -L: a link to gnome-common/ becomes the file it points to.
 cp -RL "$src/." "$stage/"
 cp "$root/LICENSE" "$stage/LICENSE"
-# getSettings() reads schemas/gschemas.compiled; `gnome-extensions install`
-# does not compile it. `gnome-extensions pack` puts it in the zip too.
+# The schemas are checked, but the compiled file stays out of the zip: the
+# review guidelines ask for none from GNOME Shell 45 on, and
+# `gnome-extensions install` compiles them (checked with 46 and 50).
 if [ -d "$stage/schemas" ]; then
-    glib-compile-schemas --strict "$stage/schemas"
+    glib-compile-schemas --strict --dry-run "$stage/schemas"
 fi
 find "$stage" -exec touch -h -d "@$epoch" {} +
 

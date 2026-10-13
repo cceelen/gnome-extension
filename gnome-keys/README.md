@@ -60,7 +60,7 @@ same UUID; remove it.
 
 On a machine that is not a UX8406, the extension binds no key and sets nothing.
 
-GNOME Shell 45 to 51 is declared. Only GNOME Shell 50 is tested.
+GNOME Shell 45 to 50 is declared. Only GNOME Shell 50 is tested.
 
 ## Test
 
