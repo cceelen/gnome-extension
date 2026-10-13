@@ -8,7 +8,7 @@
 # The merge starts this workflow again. That run makes the two zips and the
 # source archive, attests them, attaches them to the draft release and
 # publishes the release. The tag is made at publication, when the files are
-# there. The upload of the zips to extensions.gnome.org is done by hand.
+# there. Then the job ego uploads the zips to extensions.gnome.org.
 #
 # RELEASE_TOKEN is a personal access token of the maintainer for this
 # repository. What the default token does starts no checks and no workflow.
@@ -101,3 +101,35 @@ jobs:
           done
       - run: gh release upload "$TAG" release/*
       - run: gh release edit "$TAG" --draft=false
+  # The zips of the published release go to extensions.gnome.org, where a
+  # reviewer approves each version. `gnome-extensions upload` (GNOME Shell 49
+  # and later) logs in with the account of the maintainer: extensions.gnome.org
+  # has no tokens. The account is only in the environment
+  # "extensions.gnome.org", which only main can use.
+  ego:
+    needs: publish
+    runs-on: ubuntu-26.04
+    environment: extensions.gnome.org
+    permissions: {}
+    container:
+      image: ubuntu:26.04@sha256:f144425ff09be612d6d9ad965196e9cdc23dae1f42110a8a11a3e9a8198759f7
+    steps:
+      - run: >-
+          apt-get update -q && DEBIAN_FRONTEND=noninteractive apt-get install -qy
+          --no-install-recommends gnome-shell ca-certificates
+      # The files that publish checked and put on the release.
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: release-files
+          path: release
+      # The password on stdin, so that it is in no command line.
+      - env:
+          EGO_USER: ${{ vars.EGO_USER }}
+          EGO_PASSWORD: ${{ secrets.EGO_PASSWORD }}
+        run: |
+          if [ -z "$EGO_USER" ] || [ -z "$EGO_PASSWORD" ]; then
+            echo "::error::EGO_USER or EGO_PASSWORD is not set in the environment extensions.gnome.org"
+            exit 1
+          fi
+          printf '%s' "$EGO_PASSWORD" |
+            gnome-extensions upload --user "$EGO_USER" --password-file=- --accept-tos release/*.shell-extension.zip
