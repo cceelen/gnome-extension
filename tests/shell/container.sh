@@ -9,6 +9,8 @@
 # logind, so the directory goes and the Shell uses no login manager.
 set -eu
 
+# The directory of the scripts, before the cd below: $0 can be relative.
+here=$(cd "$(dirname "$0")" && pwd)
 export DEBIAN_FRONTEND=noninteractive
 apt-get -qq update
 apt-get -qq install -y --no-install-recommends \
@@ -21,4 +23,4 @@ id tester >/dev/null 2>&1 || useradd --create-home tester
 for zip in "$@"; do cp "$zip" /tmp/; done
 cd /tmp
 # shellcheck disable=SC2046
-runuser -u tester -- "$(dirname "$0")/load.sh" $(for zip in "$@"; do echo "/tmp/${zip##*/}"; done)
+runuser -u tester -- "$here/load.sh" $(for zip in "$@"; do echo "/tmp/${zip##*/}"; done)
