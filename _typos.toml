@@ -2,3 +2,5 @@
 [default.extend-words]
 # <file>.intoto.jsonl: in-toto attestations
 intoto = "intoto"
+# pn<product>: the product name in a DMI string (hwdb)
+pn = "pn"

@@ -33,6 +33,10 @@ distribution packages.
 
 ## Installation
 
+For Rotation, check first that the sensor gives the right orientation; that is
+set for the whole system, not in the extension. Its README says
+[how](gnome-rotation/README.md#check-the-sensor-first).
+
 From extensions.gnome.org, with the Extensions app or the web page. Or with the
 zip of a [release](https://github.com/cceelen/gnome-extension/releases):
 
