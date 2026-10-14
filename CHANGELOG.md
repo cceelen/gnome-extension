@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.2](https://github.com/cceelen/gnome-extension/compare/v0.6.1...v0.6.2) (2026-10-14)
+
+
+### Bug Fixes
+
+* **rotation:** pass the GSettings check of extensions.gnome.org ([7267bf9](https://github.com/cceelen/gnome-extension/commit/7267bf932e97525560f89e3c9787ec0ddfb75ffc))
+
 ## [0.6.1](https://github.com/cceelen/gnome-extension/compare/v0.6.0...v0.6.1) (2026-10-13)
 
 
