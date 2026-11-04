@@ -86,7 +86,11 @@ gnome-extensions install --force dist/builtin-screen-rotation@cceelen.github.io.
 
 The two extensions use the same files for the display state: `state.js` and
 `display.js` in each `extension/` directory are links to `gnome-common/`, and
-the zip has a copy. Their tests share the fixtures in `gnome-common/tests`.
+the zip has a copy. Their tests share the fixtures in `gnome-common/tests`. The
+test cases in `gnome-common/tests/vectors/` are also run by the KDE parts of
+[asus-zenbook-duo-ux8406](https://github.com/cceelen/asus-zenbook-duo-ux8406).
+Change `gnome-common/tests/vectors.js`, run
+`node gnome-common/tests/write-vectors.js`, and copy the files to that project.
 
 ## Rules for changes
 

@@ -93,7 +93,7 @@ function placed(state, panels, orientation) {
         state.logical.map((monitor) =>
             anew.places.has(monitor)
                 ? {...monitor, ...anew.places.get(monitor)}
-                : {...monitor, ...move(monitor, areaOf(state, monitor))},
+                : {...monitor, ...move?.(monitor, areaOf(state, monitor))},
         );
     const beside = (monitor, area) => ({
         // Beside the panels: it shares rows, or columns, with them.
@@ -109,29 +109,26 @@ function placed(state, panels, orientation) {
 
     // The place of each monitor when all lie in one row, the panels together.
     const row = new Map();
-    const first = fromLeft(panels);
     let x = 0;
+    let together = false;
 
     for (const monitor of [...state.logical].sort((one, other) => one.x - other.x)) {
         if (!panels.includes(monitor)) {
             row.set(monitor, {x, y: 0});
             x += areaOf(state, monitor).width;
-        } else if (monitor === first) {
-            const together = block(x, 0);
+        } else if (!together) {
+            // The first panel from the left brings the others with it.
+            const whole = block(x, 0);
 
-            for (const [panel, place] of together.places) row.set(panel, place);
-            x += together.width;
+            together = true;
+            for (const [panel, place] of whole.places) row.set(panel, place);
+            x += whole.width;
         }
     }
     // The compositor wants the monitors in the order in which it has them.
     const inOneRow = state.logical.map((monitor) => ({...monitor, ...row.get(monitor)}));
 
-    return [withOthers(beside), withOthers(() => ({})), inOneRow].map(toOrigin);
-}
-
-/** The panel that is furthest to the left in the layout. */
-function fromLeft(panels) {
-    return panels.reduce((one, other) => (other.x < one.x ? other : one));
+    return [withOthers(beside), withOthers(), inOneRow].map(toOrigin);
 }
 
 /**
@@ -153,12 +150,12 @@ function fromLeft(panels) {
 export function rotate(state, orientation, upright = null) {
     const panels = panelsOf(state);
 
-    if (!Object.hasOwn(TRANSFORM, orientation) || panels.length === 0) return null;
+    if (!Object.hasOwn(TRANSFORM, orientation)) return null;
     // A mirrored panel (transforms 4 to 7) is the user's own setting: a turn
     // would take the mirror away.
     if (panels.some((panel) => panel.transform > 3)) return null;
     // Turned as the laptop is: the layout is the user's, or the compositor's
-    // own, and is left alone.
+    // own, and is left alone. Also with no panel shown by itself: all of none.
     if (panels.every((panel) => panel.transform === TRANSFORM[orientation])) return null;
     if (state.logical.some((monitor) => !state.connected.get(monitor.connectors[0]))) return null;
 
