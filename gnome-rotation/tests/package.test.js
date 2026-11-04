@@ -27,6 +27,10 @@ test('shell-version holds plain major versions as strings', () => {
         );
 });
 
+test('shell-version declares GNOME Shell 45 to 51 without a gap', () => {
+    assert.deepEqual(metadata['shell-version'], ['45', '46', '47', '48', '49', '50', '51']);
+});
+
 test('the extension has no settings of its own', () => {
     assert.equal(metadata['settings-schema'], undefined);
 });

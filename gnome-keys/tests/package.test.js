@@ -31,6 +31,10 @@ test('shell-version holds plain major versions as strings', () => {
         );
 });
 
+test('shell-version declares GNOME Shell 45 to 51 without a gap', () => {
+    assert.deepEqual(metadata['shell-version'], ['45', '46', '47', '48', '49', '50', '51']);
+});
+
 test('the schema id and path match metadata.json and extension.js', () => {
     const dir = new URL('extension/schemas/', root);
     const files = readdirSync(dir).filter((f) => f.endsWith('.gschema.xml'));
