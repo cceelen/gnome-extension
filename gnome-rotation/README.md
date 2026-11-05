@@ -1,9 +1,10 @@
 # Built-in screen rotation
 
 **A GNOME Shell extension that turns the built-in screens when the laptop stands
-on its side, also with a keyboard, a touchpad or a mouse connected. It is made
-for the two screens of the ASUS Zenbook Duo UX8406, but it operates on a laptop
-of any model. Do not use it on a machine whose screen is mounted turned.**
+on its side or upside down, also with a keyboard, a touchpad or a mouse
+connected. It is made for the two screens of the ASUS Zenbook Duo UX8406, but it
+operates on a laptop of any model. Do not use it on a machine whose screen is
+mounted turned.**
 
 GNOME turns a built-in screen only when no pointer device is connected, and it
 turns one screen. This extension does it for all built-in screens.
@@ -30,7 +31,8 @@ does nothing.
 - Laptop on its left or right side: the built-in screens that are on are turned.
   Two screens are put side by side, in the order in which they lie.
 - Laptop upright again: the layout from before comes back.
-- Laptop upside down: no change.
+- Laptop upside down: the built-in screens that are on are turned by 180
+  degrees. Two screens go one below the other, the bottom one on top.
 
 An external monitor that is beside the built-in screens, right of them or below
 them, moves to make room. Other monitors stay. The change is for the session

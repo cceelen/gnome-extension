@@ -23,8 +23,9 @@ permissions:
 
 jobs:
   # The tests of the logic and of the zips, with the coverage of the modules
-  # that the tests load. extension.js, display.js and sensor.js need a GNOME
-  # Shell: the shell job loads them.
+  # that the tests load; the run fails below 100 % of lines, branches or
+  # functions. extension.js, display.js and sensor.js need a GNOME Shell: the
+  # shell job loads them.
   js:
     runs-on: ubuntu-26.04
     steps:
@@ -36,6 +37,7 @@ jobs:
           libglib2.0-bin zip unzip
       - run: |
           node --test --experimental-test-coverage --test-coverage-exclude='**/tests/**' \
+            --test-coverage-lines=100 --test-coverage-branches=100 --test-coverage-functions=100 \
             --test-reporter=spec --test-reporter-destination=stdout \
             --test-reporter=lcov --test-reporter-destination=js.lcov \
             gnome-*/tests/*.test.js tests/*.test.js | tee js.txt

@@ -50,6 +50,16 @@ build-aux/pack.sh gnome-keys dist
 pre-commit run --all-files
 ```
 
+- CI runs the tests with the coverage of the modules that they load and fails
+  below 100 % of lines, branches or functions. The same check here:
+
+  ```sh
+  node --test --experimental-test-coverage \
+    --test-coverage-exclude='**/tests/**' --test-coverage-lines=100 \
+    --test-coverage-branches=100 --test-coverage-functions=100 \
+    gnome-*/tests/*.test.js tests/*.test.js
+  ```
+
 - `build-aux/pack.sh` writes `dist/<uuid>.shell-extension.zip`, the file for
   extensions.gnome.org. The same tree gives the same zip.
 
