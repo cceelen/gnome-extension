@@ -55,12 +55,21 @@ jobs:
           build-aux/pack.sh gnome-rotation dist
       # The checks that extensions.gnome.org makes on an upload: an error
       # there holds the review, so it fails here first.
-      - run: |
+      - name: shexli (checks of extensions.gnome.org)
+        run: |
           python3 -m venv "$RUNNER_TEMP/shexli"
           "$RUNNER_TEMP/shexli/bin/pip" install -q --require-hashes -r tests/ego/requirements.txt
           status=0
           for z in dist/*.zip; do
             "$RUNNER_TEMP/shexli/bin/shexli" --format json "$z" > shexli.json
+            # shexli 0.2.1 takes each GNOME Shell version above 50 for an
+            # implausible future release. When each entry of shell-version is
+            # a final release (a plain number), that finding is a warning: the
+            # versions are declared by the rule in CONTRIBUTING.md.
+            if unzip -p "$z" metadata.json | jq -e '.["shell-version"] | all(test("^[0-9]+$"))' > /dev/null; then
+              jq '(.findings[] | select(.rule_id == "EGO-M-004") | .severity) = "warning"' shexli.json > shexli.tmp
+              mv shexli.tmp shexli.json
+            fi
             jq -r --arg z "$z" '.findings[] |
               "::\(if .severity == "error" then "error" else "warning" end) title=\(.rule_id)::\($z): \(.message)"' shexli.json
             jq -e '[.findings[] | select(.severity == "error")] | length == 0' shexli.json > /dev/null || status=1

@@ -61,6 +61,16 @@ pre-commit run --all-files
       /src/tests/shell/container.sh /src/dist/*.zip
   ```
 
+- shexli makes the checks of extensions.gnome.org on the zips. CI runs it in the
+  job `js`, and an error there fails the job. Locally, in a virtual environment
+  with the pinned versions:
+
+  ```sh
+  python3 -m venv /tmp/shexli
+  /tmp/shexli/bin/pip install --require-hashes -r tests/ego/requirements.txt
+  for z in dist/*.zip; do /tmp/shexli/bin/shexli "$z"; done
+  ```
+
 - Formats and lints are [pre-commit](https://pre-commit.com) hooks. Run
   `pre-commit install` one time.
 
@@ -89,6 +99,9 @@ the zip has a copy. Their tests share the fixtures in `gnome-common/tests`.
   [review guidelines](https://gjs.guide/extensions/review-guidelines/review-guidelines.html)
   of extensions.gnome.org reject the extension otherwise.
 - Logic goes in modules without GNOME imports, with tests that use plain data.
+- `shell-version` in `metadata.json` gets a GNOME Shell version when it is a
+  final release that a large distribution (Fedora) ships. Development releases
+  are not declared.
 - The documents use Simplified Technical English. A claim without evidence is
   marked as not verified.
 
