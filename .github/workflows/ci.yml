@@ -82,9 +82,12 @@ jobs:
             "$RUNNER_TEMP/shexli/bin/shexli" --format json "$z" > shexli.json
             # shexli 0.2.1 takes each GNOME Shell version above 50 for an
             # implausible future release. When each entry of shell-version is
-            # a final release (a plain number), that finding is a warning: the
-            # versions are declared by the rule in CONTRIBUTING.md.
-            if unzip -p "$z" metadata.json | jq -e '.["shell-version"] | all(test("^[0-9]+$"))' > /dev/null; then
+            # in tests/ego/final-shell-versions.json, the list of final
+            # releases (the rule in CONTRIBUTING.md), that finding is a
+            # warning. Any other entry keeps it an error.
+            if unzip -p "$z" metadata.json |
+              jq -e --slurpfile final tests/ego/final-shell-versions.json \
+                '.["shell-version"] - $final[0] | length == 0' > /dev/null; then
               jq '(.findings[] | select(.rule_id == "EGO-M-004") | .severity) = "warning"' shexli.json > shexli.tmp
               mv shexli.tmp shexli.json
             fi
