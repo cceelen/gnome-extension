@@ -5435,6 +5435,48 @@
     "expect": null
   },
   {
+    "name": "the buttons start from normal",
+    "call": "buttonsFrom",
+    "orientation": "normal",
+    "expect": "normal"
+  },
+  {
+    "name": "the buttons start from left-up",
+    "call": "buttonsFrom",
+    "orientation": "left-up",
+    "expect": "left-up"
+  },
+  {
+    "name": "the buttons start from right-up",
+    "call": "buttonsFrom",
+    "orientation": "right-up",
+    "expect": "right-up"
+  },
+  {
+    "name": "the buttons start from bottom-up",
+    "call": "buttonsFrom",
+    "orientation": "bottom-up",
+    "expect": "normal"
+  },
+  {
+    "name": "the buttons start from undefined",
+    "call": "buttonsFrom",
+    "orientation": "undefined",
+    "expect": "normal"
+  },
+  {
+    "name": "the buttons start from constructor",
+    "call": "buttonsFrom",
+    "orientation": "constructor",
+    "expect": "normal"
+  },
+  {
+    "name": "the buttons start from null",
+    "call": "buttonsFrom",
+    "orientation": null,
+    "expect": "normal"
+  },
+  {
     "name": "the orientation of upright panels",
     "call": "orientationOf",
     "state": {
@@ -5803,5 +5845,3280 @@
       ]
     },
     "expect": null
+  },
+  {
+    "name": "one panel by itself, face to face: the lower one by 180 degrees",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-2",
+    "orientation": "bottom-up",
+    "expect": [
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 0,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 1440,
+        "scale": 1.25,
+        "transform": 2,
+        "primary": true,
+        "connectors": [
+          "eDP-2"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "one panel by itself: the upper one by 180 degrees",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-1",
+    "orientation": "bottom-up",
+    "expect": [
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 2,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 1440,
+        "scale": 1.25,
+        "transform": 0,
+        "primary": true,
+        "connectors": [
+          "eDP-2"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "one panel by itself, 90 degrees: the upper one left side up",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-1",
+    "orientation": "left-up",
+    "expect": [
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 1,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 2304,
+        "scale": 1.25,
+        "transform": 0,
+        "primary": true,
+        "connectors": [
+          "eDP-2"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "one panel by itself, 90 degrees: the lower one right side up",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-2",
+    "orientation": "right-up",
+    "expect": [
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 0,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 1440,
+        "scale": 1.25,
+        "transform": 3,
+        "primary": true,
+        "connectors": [
+          "eDP-2"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "both panels turned differently: the upper one right side up",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 2,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-1",
+    "orientation": "right-up",
+    "expect": [
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 3,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 2304,
+        "scale": 1.25,
+        "transform": 2,
+        "primary": true,
+        "connectors": [
+          "eDP-2"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "both panels turned differently: the lower one back upright",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 2,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-2",
+    "orientation": "normal",
+    "expect": [
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 0,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 1440,
+        "scale": 1.25,
+        "transform": 0,
+        "primary": true,
+        "connectors": [
+          "eDP-2"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "side by side: the lower panel upright, the upper one stays turned",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 1440,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 1,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 1,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-2",
+    "orientation": "normal",
+    "expect": [
+      {
+        "x": 2304,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 1,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 0,
+        "primary": true,
+        "connectors": [
+          "eDP-2"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "side by side: the upper panel by 180 degrees",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 1440,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 1,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 1,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-1",
+    "orientation": "bottom-up",
+    "expect": [
+      {
+        "x": 1440,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 2,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 1,
+        "primary": true,
+        "connectors": [
+          "eDP-2"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "side by side, right side up: the upper panel back upright",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 3,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 1440,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 3,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-1",
+    "orientation": "normal",
+    "expect": [
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 0,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 2304,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 3,
+        "primary": true,
+        "connectors": [
+          "eDP-2"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "the order of the panels comes from the layout, not from their names",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-2"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-1"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-1",
+    "orientation": "bottom-up",
+    "expect": [
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 0,
+        "primary": false,
+        "connectors": [
+          "eDP-2"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 1440,
+        "scale": 1.25,
+        "transform": 2,
+        "primary": true,
+        "connectors": [
+          "eDP-1"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "a panel on top of the layout stays on top when it is turned",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-2"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-1"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-2",
+    "orientation": "left-up",
+    "expect": [
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 1,
+        "primary": false,
+        "connectors": [
+          "eDP-2"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 2304,
+        "scale": 1.25,
+        "transform": 0,
+        "primary": true,
+        "connectors": [
+          "eDP-1"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "a laptop with one panel has that one turned",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-1"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-1",
+    "orientation": "bottom-up",
+    "expect": [
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 2,
+        "primary": true,
+        "connectors": [
+          "eDP-1"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "a monitor right of the panels moves by as much as they grow",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        },
+        "DP-7": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        },
+        {
+          "x": 2304,
+          "y": 200,
+          "scale": 1,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "DP-7"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-1",
+    "orientation": "left-up",
+    "expect": [
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 1,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 2304,
+        "scale": 1.25,
+        "transform": 0,
+        "primary": true,
+        "connectors": [
+          "eDP-2"
+        ]
+      },
+      {
+        "x": 2304,
+        "y": 2304,
+        "scale": 1,
+        "transform": 0,
+        "primary": false,
+        "connectors": [
+          "DP-7"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "a monitor below the panels moves by as much as they grow",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        },
+        "DP-7": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        },
+        {
+          "x": 300,
+          "y": 2880,
+          "scale": 1,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "DP-7"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-1",
+    "orientation": "left-up",
+    "expect": [
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 1,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 2304,
+        "scale": 1.25,
+        "transform": 0,
+        "primary": true,
+        "connectors": [
+          "eDP-2"
+        ]
+      },
+      {
+        "x": 300,
+        "y": 3744,
+        "scale": 1,
+        "transform": 0,
+        "primary": false,
+        "connectors": [
+          "DP-7"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "a monitor below the panels does not move when they stay as high",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        },
+        "DP-7": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        },
+        {
+          "x": 300,
+          "y": 2880,
+          "scale": 1,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "DP-7"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-2",
+    "orientation": "bottom-up",
+    "expect": [
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 0,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 1440,
+        "scale": 1.25,
+        "transform": 2,
+        "primary": true,
+        "connectors": [
+          "eDP-2"
+        ]
+      },
+      {
+        "x": 300,
+        "y": 2880,
+        "scale": 1,
+        "transform": 0,
+        "primary": false,
+        "connectors": [
+          "DP-7"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "a monitor that is not beside the panels stays",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "DP-8": {
+          "width": 2880,
+          "height": 1800
+        },
+        "DP-7": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1"
+      ],
+      "logical": [
+        {
+          "x": 760,
+          "y": 1800,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "DP-8"
+          ]
+        },
+        {
+          "x": 2880,
+          "y": 0,
+          "scale": 1,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "DP-7"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-1",
+    "orientation": "left-up",
+    "expect": [
+      {
+        "x": 760,
+        "y": 1800,
+        "scale": 1.25,
+        "transform": 1,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1,
+        "transform": 0,
+        "primary": true,
+        "connectors": [
+          "DP-8"
+        ]
+      },
+      {
+        "x": 2880,
+        "y": 0,
+        "scale": 1,
+        "transform": 0,
+        "primary": false,
+        "connectors": [
+          "DP-7"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "when nothing else fits, the monitors are put in one row",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "DP-1": {
+          "width": 2304,
+          "height": 600
+        },
+        "DP-2": {
+          "width": 1000,
+          "height": 500
+        }
+      },
+      "builtin": [
+        "eDP-1"
+      ],
+      "logical": [
+        {
+          "x": 2304,
+          "y": 1440,
+          "scale": 1,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "DP-2"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "DP-1"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-1",
+    "orientation": "left-up",
+    "expect": [
+      {
+        "x": 3744,
+        "y": 0,
+        "scale": 1,
+        "transform": 0,
+        "primary": false,
+        "connectors": [
+          "DP-2"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 1,
+        "primary": true,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 1440,
+        "y": 0,
+        "scale": 1,
+        "transform": 0,
+        "primary": false,
+        "connectors": [
+          "DP-1"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "an unknown orientation changes nothing",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-1",
+    "orientation": "undefined",
+    "expect": null
+  },
+  {
+    "name": "the name of something that each object has changes nothing",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-1",
+    "orientation": "constructor",
+    "expect": null
+  },
+  {
+    "name": "an empty orientation changes nothing",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-1",
+    "orientation": "",
+    "expect": null
+  },
+  {
+    "name": "a monitor that is not a built-in panel changes nothing",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        },
+        "DP-7": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        },
+        {
+          "x": 2304,
+          "y": 200,
+          "scale": 1,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "DP-7"
+          ]
+        }
+      ]
+    },
+    "connector": "DP-7",
+    "orientation": "left-up",
+    "expect": null
+  },
+  {
+    "name": "a connector that is not there changes nothing",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "connector": "DP-9",
+    "orientation": "left-up",
+    "expect": null
+  },
+  {
+    "name": "a panel that is connected but off changes nothing",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-1"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-2",
+    "orientation": "left-up",
+    "expect": null
+  },
+  {
+    "name": "a panel in the orientation that is asked for changes nothing",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-1",
+    "orientation": "normal",
+    "expect": null
+  },
+  {
+    "name": "a turned panel in the orientation that is asked for changes nothing",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 2,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-2",
+    "orientation": "bottom-up",
+    "expect": null
+  },
+  {
+    "name": "panels that are mirrored together change nothing",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-1",
+            "eDP-2"
+          ]
+        },
+        {
+          "x": 2880,
+          "y": 0,
+          "scale": 1,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "DP-7"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-1",
+    "orientation": "left-up",
+    "expect": null
+  },
+  {
+    "name": "the other panel is mirrored (4): nothing is turned",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 4,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-1",
+    "orientation": "left-up",
+    "expect": null
+  },
+  {
+    "name": "the panel is mirrored (4): nothing is turned",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 4,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-2",
+    "orientation": "normal",
+    "expect": null
+  },
+  {
+    "name": "the other panel is mirrored (5): nothing is turned",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 5,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-1",
+    "orientation": "left-up",
+    "expect": null
+  },
+  {
+    "name": "the panel is mirrored (5): nothing is turned",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 5,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-2",
+    "orientation": "normal",
+    "expect": null
+  },
+  {
+    "name": "the other panel is mirrored (6): nothing is turned",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 6,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-1",
+    "orientation": "left-up",
+    "expect": null
+  },
+  {
+    "name": "the panel is mirrored (6): nothing is turned",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 6,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-2",
+    "orientation": "normal",
+    "expect": null
+  },
+  {
+    "name": "the other panel is mirrored (7): nothing is turned",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 7,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-1",
+    "orientation": "left-up",
+    "expect": null
+  },
+  {
+    "name": "the panel is mirrored (7): nothing is turned",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 7,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-2",
+    "orientation": "normal",
+    "expect": null
+  },
+  {
+    "name": "a monitor without a mode changes nothing",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "DP-7": null
+      },
+      "builtin": [
+        "eDP-1"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 2304,
+          "y": 0,
+          "scale": 1,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "DP-7"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-1",
+    "orientation": "left-up",
+    "expect": null
+  },
+  {
+    "name": "from face to face to upright: the layout from before",
+    "call": "rotate",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 2,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "orientation": "normal",
+    "upright": [
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 0,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 1440,
+        "scale": 1.25,
+        "transform": 0,
+        "primary": true,
+        "connectors": [
+          "eDP-2"
+        ]
+      }
+    ],
+    "expect": [
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 0,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 1440,
+        "scale": 1.25,
+        "transform": 0,
+        "primary": true,
+        "connectors": [
+          "eDP-2"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "from face to face to upright: no layout from before",
+    "call": "rotate",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 2,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "orientation": "normal",
+    "upright": null,
+    "expect": [
+      {
+        "x": 0,
+        "y": 1440,
+        "scale": 1.25,
+        "transform": 0,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 0,
+        "primary": true,
+        "connectors": [
+          "eDP-2"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "from face to face to upright: the order of the list",
+    "call": "rotate",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 2,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "orientation": "normal",
+    "upright": null,
+    "top": [
+      "eDP-1",
+      "eDP-2"
+    ],
+    "expect": [
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 0,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 1440,
+        "scale": 1.25,
+        "transform": 0,
+        "primary": true,
+        "connectors": [
+          "eDP-2"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "from face to face to left side up: the order of the list",
+    "call": "rotate",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 2,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "orientation": "left-up",
+    "upright": null,
+    "top": [
+      "eDP-1",
+      "eDP-2"
+    ],
+    "expect": [
+      {
+        "x": 1440,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 1,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 1,
+        "primary": true,
+        "connectors": [
+          "eDP-2"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "from face to face to right side up: the order of the list",
+    "call": "rotate",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 2,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "orientation": "right-up",
+    "upright": null,
+    "top": [
+      "eDP-1",
+      "eDP-2"
+    ],
+    "expect": [
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 3,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 1440,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 3,
+        "primary": true,
+        "connectors": [
+          "eDP-2"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "from face to face to upside down: the order of the list",
+    "call": "rotate",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 2,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "orientation": "bottom-up",
+    "upright": null,
+    "top": [
+      "eDP-1",
+      "eDP-2"
+    ],
+    "expect": [
+      {
+        "x": 0,
+        "y": 1440,
+        "scale": 1.25,
+        "transform": 2,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 2,
+        "primary": true,
+        "connectors": [
+          "eDP-2"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "turned differently, the lower panel first in the list",
+    "call": "rotate",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 2,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "orientation": "left-up",
+    "upright": null,
+    "top": [
+      "eDP-2",
+      "eDP-1"
+    ],
+    "expect": [
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 1,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 1440,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 1,
+        "primary": true,
+        "connectors": [
+          "eDP-2"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "turned differently, a list that misses a panel is not used",
+    "call": "rotate",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 2,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "orientation": "left-up",
+    "upright": null,
+    "top": [
+      "eDP-1"
+    ],
+    "expect": [
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 1,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 1440,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 1,
+        "primary": true,
+        "connectors": [
+          "eDP-2"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "panels turned the same way ignore the list",
+    "call": "rotate",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "orientation": "left-up",
+    "upright": null,
+    "top": [
+      "eDP-2",
+      "eDP-1"
+    ],
+    "expect": [
+      {
+        "x": 1440,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 1,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 1,
+        "primary": true,
+        "connectors": [
+          "eDP-2"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "both panels put back: upper upright, lower upside down",
+    "call": "turnMany",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "held": {
+      "eDP-1": "normal",
+      "eDP-2": "bottom-up"
+    },
+    "expect": [
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 0,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 1440,
+        "scale": 1.25,
+        "transform": 2,
+        "primary": true,
+        "connectors": [
+          "eDP-2"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "both panels put back: each turned",
+    "call": "turnMany",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "held": {
+      "eDP-1": "left-up",
+      "eDP-2": "right-up"
+    },
+    "expect": [
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 1,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 2304,
+        "scale": 1.25,
+        "transform": 3,
+        "primary": true,
+        "connectors": [
+          "eDP-2"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "a panel that is gone keeps no place: only the upper one is turned",
+    "call": "turnMany",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-1"
+          ]
+        }
+      ]
+    },
+    "held": {
+      "eDP-1": "bottom-up",
+      "eDP-2": "left-up"
+    },
+    "expect": [
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 2,
+        "primary": true,
+        "connectors": [
+          "eDP-1"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "panels that have their orientations already",
+    "call": "turnMany",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 2,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "held": {
+      "eDP-1": "normal",
+      "eDP-2": "bottom-up"
+    },
+    "expect": null
+  },
+  {
+    "name": "no orientations",
+    "call": "turnMany",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "held": {},
+    "expect": null
+  },
+  {
+    "name": "an unknown orientation among them",
+    "call": "turnMany",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        }
+      ]
+    },
+    "held": {
+      "eDP-1": "left-up",
+      "eDP-2": "undefined"
+    },
+    "expect": null
+  },
+  {
+    "name": "a mirrored panel",
+    "call": "turnMany",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-1",
+            "eDP-2"
+          ]
+        },
+        {
+          "x": 2880,
+          "y": 0,
+          "scale": 1,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "DP-7"
+          ]
+        }
+      ]
+    },
+    "held": {
+      "eDP-1": "left-up"
+    },
+    "expect": null
+  },
+  {
+    "name": "a monitor right of the panels, the other panel turned",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        },
+        "DP-7": {
+          "width": 2880,
+          "height": 1800
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1440,
+          "scale": 1.25,
+          "transform": 0,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        },
+        {
+          "x": 2304,
+          "y": 2000,
+          "scale": 1,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "DP-7"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-2",
+    "orientation": "right-up",
+    "expect": [
+      {
+        "x": 0,
+        "y": 360,
+        "scale": 1.25,
+        "transform": 0,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 0,
+        "y": 1800,
+        "scale": 1.25,
+        "transform": 3,
+        "primary": true,
+        "connectors": [
+          "eDP-2"
+        ]
+      },
+      {
+        "x": 2304,
+        "y": 0,
+        "scale": 1,
+        "transform": 0,
+        "primary": false,
+        "connectors": [
+          "DP-7"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "a monitor below side by side panels slides to the panel that reaches the edge",
+    "call": "turnOne",
+    "state": {
+      "logicalMode": true,
+      "connected": {
+        "eDP-1": {
+          "width": 2880,
+          "height": 1800
+        },
+        "eDP-2": {
+          "width": 2880,
+          "height": 1800
+        },
+        "DP-7": {
+          "width": 1000,
+          "height": 500
+        }
+      },
+      "builtin": [
+        "eDP-1",
+        "eDP-2"
+      ],
+      "logical": [
+        {
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 3,
+          "primary": false,
+          "connectors": [
+            "eDP-1"
+          ]
+        },
+        {
+          "x": 1440,
+          "y": 0,
+          "scale": 1.25,
+          "transform": 3,
+          "primary": true,
+          "connectors": [
+            "eDP-2"
+          ]
+        },
+        {
+          "x": 100,
+          "y": 2304,
+          "scale": 1,
+          "transform": 0,
+          "primary": false,
+          "connectors": [
+            "DP-7"
+          ]
+        }
+      ]
+    },
+    "connector": "eDP-1",
+    "orientation": "normal",
+    "expect": [
+      {
+        "x": 0,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 0,
+        "primary": false,
+        "connectors": [
+          "eDP-1"
+        ]
+      },
+      {
+        "x": 2304,
+        "y": 0,
+        "scale": 1.25,
+        "transform": 3,
+        "primary": true,
+        "connectors": [
+          "eDP-2"
+        ]
+      },
+      {
+        "x": 2304,
+        "y": 2304,
+        "scale": 1,
+        "transform": 0,
+        "primary": false,
+        "connectors": [
+          "DP-7"
+        ]
+      }
+    ]
   }
 ]
