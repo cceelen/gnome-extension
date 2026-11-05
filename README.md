@@ -7,10 +7,10 @@
 [![Plumber Score](https://score.getplumber.io/github.com/cceelen/gnome-extension.svg)](https://score.getplumber.io/github.com/cceelen/gnome-extension)
 
 **Two GNOME Shell extensions, published on extensions.gnome.org. Rotation turns
-the built-in screens of a laptop when it stands on its side or upside down. Keys
-gives a function to two keys of the ASUS Zenbook Duo UX8406 and gives each of
-its touchscreens its screen. They are tested on a UX8406CA with Fedora 44 and
-GNOME 50.**
+the built-in screens of a laptop when it stands on its side or upside down, and
+turns each screen by hand. Keys gives a function to two keys of the ASUS Zenbook
+Duo UX8406 and gives each of its touchscreens its screen. They are tested on a
+UX8406CA with Fedora 44 and GNOME 50.**
 
 | Extension                                            | For                | Needs                                                                                    |
 | ---------------------------------------------------- | ------------------ | ---------------------------------------------------------------------------------------- |

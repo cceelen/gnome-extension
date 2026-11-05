@@ -6,7 +6,16 @@ import {readFileSync} from 'node:fs';
 import {test} from 'node:test';
 
 import {build, fromNeutral, toLayout} from '../../gnome-common/tests/vectors.js';
-import {control, orientationOf, rotate, turned, uprightAfter} from '../extension/rotation.js';
+import {
+    buttonsFrom,
+    control,
+    orientationOf,
+    rotate,
+    turned,
+    turnMany,
+    turnOne,
+    uprightAfter,
+} from '../extension/rotation.js';
 
 const read = (name) =>
     JSON.parse(
@@ -18,13 +27,19 @@ const run = (entry) => {
 
     switch (entry.call) {
         case 'rotate':
-            return toLayout(rotate(state, entry.orientation, entry.upright));
+            return toLayout(rotate(state, entry.orientation, entry.upright, entry.top ?? null));
+        case 'turnMany':
+            return toLayout(turnMany(state, entry.held));
+        case 'turnOne':
+            return toLayout(turnOne(state, entry.connector, entry.orientation));
         case 'uprightAfter':
             return toLayout(uprightAfter(state, entry.orientation, entry.upright));
         case 'orientationOf':
             return orientationOf(state);
         case 'turned':
             return turned(entry.orientation, entry.direction);
+        case 'buttonsFrom':
+            return buttonsFrom(entry.orientation);
         case 'control':
             return control({managed: entry.managed, sensor: entry.sensor, builtin: entry.builtin});
         default:

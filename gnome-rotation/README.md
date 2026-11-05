@@ -4,7 +4,8 @@
 on its side or upside down, also with a keyboard, a touchpad or a mouse
 connected. It is made for the two screens of the ASUS Zenbook Duo UX8406, but it
 operates on a laptop of any model. Do not use it on a machine whose screen is
-mounted turned.**
+mounted turned. Each screen can also be turned by hand, on its own, from the
+quick settings.**
 
 GNOME turns a built-in screen only when no pointer device is connected, and it
 turns one screen. This extension does it for all built-in screens.
@@ -22,9 +23,9 @@ then reports a panel orientation). On such a machine the extension turns the
 picture wrongly. The compositor (mutter) knows the panel orientation, but up to
 GNOME 51 it gives it neither to extensions nor over D-Bus (`GetCurrentState`).
 
-It needs GNOME Shell 45 to 51 (only 50 is tested) and `iio-sensor-proxy`, which
-gives the orientation. On a machine without a built-in screen, the extension
-does nothing.
+It needs GNOME Shell 45 to 51 (only 50 is tested). For the sensor it needs
+`iio-sensor-proxy`, which gives the orientation; the turn by hand does not need
+it. On a machine without a built-in screen, the extension does nothing.
 
 ## What it does
 
@@ -33,6 +34,40 @@ does nothing.
 - Laptop upright again: the layout from before comes back.
 - Laptop upside down: the built-in screens that are on are turned by 180
   degrees. Two screens go one below the other, the bottom one on top.
+
+### Turn a screen by hand
+
+The menu of "Auto-rotate" in the quick settings has a section for each built-in
+screen: "Upper screen" and "Lower screen" for two screens, "Built-in screen" for
+one. Each section has four buttons: upright, left side up, right side up and
+upside down. The button of the present orientation is marked. Each screen can
+have any orientation, also a different one than the other screen. With the upper
+screen upright and the lower one upside down, two people who sit opposite each
+other read the screen near to them the right way up.
+
+- A turn by hand switches "Auto-rotate" off, so that the sensor does not undo
+  it. The switch shows "Turned by hand".
+- Switch "Auto-rotate" on again: all screens go back under the sensor and turn
+  to the orientation of the laptop at once.
+- The turns are for the session only. The saved setting of "Auto-rotate" does
+  not change because of a turn by hand: after a new login the screens follow the
+  laptop again. A screen lock does not end a turn by hand.
+- The screens stay as they lie: two screens one below the other stay so, in the
+  same order, and two screens side by side stay so. They are placed again from
+  the top left corner of the two, with their new sizes. An external monitor
+  beside them moves as for the sensor, and slides along the new edge of the two
+  screens if one screen is narrower than the other. If that gives no layout that
+  GNOME takes, all monitors go in one row.
+- When the monitors change (the keyboard goes on or off the lower screen, a
+  monitor is plugged in) and GNOME sets the layout again, each screen that is
+  shown goes back to its orientation. A screen that is off keeps its orientation
+  until it is back. If GNOME does not take the orientation of a screen, that
+  screen is not held any more, and the error is in the journal.
+- Switch "Auto-rotate" on again: screens that are turned differently get their
+  place from the order of the built-in screens in GNOME: the upper screen is the
+  first one.
+- Not for a screen that is off, a screen that is mirrored, or a monitor without
+  a mode: the buttons of such a screen do nothing.
 
 An external monitor that is beside the built-in screens, right of them or below
 them, moves to make room. Other monitors stay. The change is for the session
@@ -120,17 +155,19 @@ gnome-extensions enable builtin-screen-rotation@cceelen.github.io
 
 The switch "Auto-rotate" in the quick settings turns the rotation on and off. It
 is GNOME's setting `orientation-lock`. While it is off, the extension does not
-use the sensor.
+use the sensor. Its menu turns each screen by hand
+([Turn a screen by hand](#turn-a-screen-by-hand)).
 
 The switch shows only when `iio-sensor-proxy` gives the orientation and the
 machine has a built-in screen. When GNOME turns the screen itself (no pointer
 device connected), GNOME shows its own switch for the same setting, and this one
 is hidden.
 
-When no sensor gives the orientation, two buttons are in the place of the
-switch. Each turns the built-in screens by 90 degrees, counterclockwise or
-clockwise: left side up, upright, right side up. To try the buttons on a machine
-with a sensor, stop the service:
+When no sensor gives the orientation, the item is no switch: it opens the menu
+for each screen, and two buttons are next to it. Each button turns all built-in
+screens by 90 degrees, counterclockwise or clockwise: left side up, upright,
+right side up. To try the switch on a machine with a sensor, or the buttons,
+stop the service:
 
 ```sh
 sudo systemctl stop iio-sensor-proxy

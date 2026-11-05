@@ -33,6 +33,7 @@ const EXTENSIONS = {
         'LICENSE',
         'display.js',
         'extension.js',
+        'hold.js',
         'metadata.json',
         'rotation.js',
         'sensor.js',

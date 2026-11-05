@@ -10,10 +10,13 @@
 import {toggle, withBelow, without} from '../../gnome-keys/extension/layout.js';
 import {assignments, controllersOf} from '../../gnome-keys/extension/touch.js';
 import {
+    buttonsFrom,
     control,
     orientationOf,
     rotate,
     turned,
+    turnMany,
+    turnOne,
     uprightAfter,
 } from '../../gnome-rotation/extension/rotation.js';
 import {isRest, isValid, readState, shifted, sizeOf, toOrigin} from '../state.js';
@@ -155,13 +158,19 @@ function runRotation(entry) {
 
     switch (call) {
         case 'rotate':
-            return toLayout(rotate(st, entry.orientation, upright));
+            return toLayout(rotate(st, entry.orientation, upright, entry.top ?? null));
+        case 'turnMany':
+            return toLayout(turnMany(st, entry.held));
+        case 'turnOne':
+            return toLayout(turnOne(st, entry.connector, entry.orientation));
         case 'uprightAfter':
             return toLayout(uprightAfter(st, entry.orientation, upright));
         case 'orientationOf':
             return orientationOf(st);
         case 'turned':
             return turned(entry.orientation, entry.direction);
+        case 'buttonsFrom':
+            return buttonsFrom(entry.orientation);
         case 'control':
             return control({managed: entry.managed, sensor: entry.sensor, builtin: entry.builtin});
         default:
@@ -644,8 +653,8 @@ function rotationCases() {
         ...st,
         logical: rotate(st, orientation, upright),
     });
-    const named = (name, st, orientation, upright = null) =>
-        add(name, 'rotate', {state: N(st), orientation, upright: L(upright)});
+    const named = (name, st, orientation, upright = null, top = null) =>
+        add(name, 'rotate', {state: N(st), orientation, upright: L(upright), ...(top && {top})});
     const leftUp = turnedTo(two, 'left-up');
 
     named('left side up: both panels turned, the lower one on the left', two, 'left-up');
@@ -1128,6 +1137,8 @@ function rotationCases() {
     for (const orientation of names)
         for (const direction of ['clockwise', 'counterclockwise'])
             add(`turned ${orientation} ${direction}`, 'turned', {orientation, direction});
+    for (const orientation of [...names, null])
+        add(`the buttons start from ${orientation}`, 'buttonsFrom', {orientation});
 
     const of = (name, st) => add(name, 'orientationOf', {state: N(st)});
 
@@ -1143,6 +1154,222 @@ function rotationCases() {
         state(12, [monitor('DP-7')], [logical('DP-7', 0, 0, true, 1)]),
     );
     of('the orientation with the panels mirrored together', mirroredState());
+
+    // One panel turned by itself: the other panels stay as they are.
+    const one = (name, st, connector, orientation) =>
+        add(name, 'turnOne', {state: N(st), connector, orientation});
+    const faceToFace = {
+        ...two,
+        logical: [{...at(two.logical, UPPER)}, {...at(two.logical, LOWER), transform: 2}],
+    };
+
+    one('one panel by itself, face to face: the lower one by 180 degrees', two, LOWER, 'bottom-up');
+    one('one panel by itself: the upper one by 180 degrees', two, UPPER, 'bottom-up');
+    one('one panel by itself, 90 degrees: the upper one left side up', two, UPPER, 'left-up');
+    one('one panel by itself, 90 degrees: the lower one right side up', two, LOWER, 'right-up');
+    one(
+        'both panels turned differently: the upper one right side up',
+        faceToFace,
+        UPPER,
+        'right-up',
+    );
+    one('both panels turned differently: the lower one back upright', faceToFace, LOWER, 'normal');
+    one(
+        'side by side: the lower panel upright, the upper one stays turned',
+        leftUp,
+        LOWER,
+        'normal',
+    );
+    one('side by side: the upper panel by 180 degrees', leftUp, UPPER, 'bottom-up');
+    one('side by side, right side up: the upper panel back upright', rightTurned, UPPER, 'normal');
+    one(
+        'the order of the panels comes from the layout, not from their names',
+        swappedRows,
+        UPPER,
+        'bottom-up',
+    );
+    one(
+        'a panel on top of the layout stays on top when it is turned',
+        swappedRows,
+        LOWER,
+        'left-up',
+    );
+    one('a laptop with one panel has that one turned', lowerOff(), UPPER, 'bottom-up');
+    one(
+        'a monitor right of the panels moves by as much as they grow',
+        beside(2304, 200),
+        UPPER,
+        'left-up',
+    );
+    one(
+        'a monitor below the panels moves by as much as they grow',
+        beside(300, 2880),
+        UPPER,
+        'left-up',
+    );
+    one(
+        'a monitor below the panels does not move when they stay as high',
+        beside(300, 2880),
+        LOWER,
+        'bottom-up',
+    );
+    one('a monitor that is not beside the panels stays', away(), UPPER, 'left-up');
+    one(
+        'when nothing else fits, the monitors are put in one row',
+        state(
+            14,
+            [monitor(UPPER), SIZE('DP-1', 2304, 600), SIZE('DP-2', 1000, 500)],
+            [
+                logical('DP-2', 2304, 1440, false, 1),
+                logical(UPPER, 0, 0, true),
+                logical('DP-1', 0, 1440, false, 1),
+            ],
+        ),
+        UPPER,
+        'left-up',
+    );
+
+    one('an unknown orientation changes nothing', two, UPPER, 'undefined');
+    one('the name of something that each object has changes nothing', two, UPPER, 'constructor');
+    one('an empty orientation changes nothing', two, UPPER, '');
+    one(
+        'a monitor that is not a built-in panel changes nothing',
+        beside(2304, 200),
+        'DP-7',
+        'left-up',
+    );
+    one('a connector that is not there changes nothing', two, 'DP-9', 'left-up');
+    one('a panel that is connected but off changes nothing', lowerOff(), LOWER, 'left-up');
+    one('a panel in the orientation that is asked for changes nothing', two, UPPER, 'normal');
+    one(
+        'a turned panel in the orientation that is asked for changes nothing',
+        faceToFace,
+        LOWER,
+        'bottom-up',
+    );
+    one('panels that are mirrored together change nothing', mirroredState(), UPPER, 'left-up');
+    for (const transform of [4, 5, 6, 7]) {
+        const st = twoPanels();
+
+        at(st.logical, LOWER).transform = transform;
+        one(`the other panel is mirrored (${transform}): nothing is turned`, st, UPPER, 'left-up');
+        one(`the panel is mirrored (${transform}): nothing is turned`, st, LOWER, 'normal');
+    }
+    one(
+        'a monitor without a mode changes nothing',
+        state(
+            16,
+            [monitor(UPPER), NO_MODE('DP-7')],
+            [logical(UPPER, 0, 0, true), logical('DP-7', 2304, 0, false, 1)],
+        ),
+        UPPER,
+        'left-up',
+    );
+
+    // Auto-rotate on again: the panels that were turned by hand follow the
+    // laptop. `top` is the order of the compositor's list, upper panel first.
+    const upperFirst = [UPPER, LOWER];
+
+    named(
+        'from face to face to upright: the layout from before',
+        faceToFace,
+        'normal',
+        two.logical,
+    );
+    named('from face to face to upright: no layout from before', faceToFace, 'normal');
+    named(
+        'from face to face to upright: the order of the list',
+        faceToFace,
+        'normal',
+        null,
+        upperFirst,
+    );
+    named(
+        'from face to face to left side up: the order of the list',
+        faceToFace,
+        'left-up',
+        null,
+        upperFirst,
+    );
+    named(
+        'from face to face to right side up: the order of the list',
+        faceToFace,
+        'right-up',
+        null,
+        upperFirst,
+    );
+    named(
+        'from face to face to upside down: the order of the list',
+        faceToFace,
+        'bottom-up',
+        null,
+        upperFirst,
+    );
+    named('turned differently, the lower panel first in the list', faceToFace, 'left-up', null, [
+        LOWER,
+        UPPER,
+    ]);
+    named(
+        'turned differently, a list that misses a panel is not used',
+        faceToFace,
+        'left-up',
+        null,
+        [UPPER],
+    );
+    named('panels turned the same way ignore the list', two, 'left-up', null, [LOWER, UPPER]);
+
+    // Panels put back to their orientations, for instance after a monitor change.
+    const many = (name, st, held) => add(name, 'turnMany', {state: N(st), held});
+
+    many('both panels put back: upper upright, lower upside down', twoPanels(), {
+        [UPPER]: 'normal',
+        [LOWER]: 'bottom-up',
+    });
+    many('both panels put back: each turned', twoPanels(), {
+        [UPPER]: 'left-up',
+        [LOWER]: 'right-up',
+    });
+    many('a panel that is gone keeps no place: only the upper one is turned', lowerOff(), {
+        [UPPER]: 'bottom-up',
+        [LOWER]: 'left-up',
+    });
+    many('panels that have their orientations already', faceToFace, {
+        [UPPER]: 'normal',
+        [LOWER]: 'bottom-up',
+    });
+    many('no orientations', two, {});
+    many('an unknown orientation among them', two, {[UPPER]: 'left-up', [LOWER]: 'undefined'});
+    many('a mirrored panel', mirroredState(), {[UPPER]: 'left-up'});
+
+    // A monitor that touched the old block touches the widest edge of the new one.
+    const besideTall = () =>
+        withTransform(
+            state(
+                40,
+                [monitor(UPPER), monitor(LOWER), SIZE('DP-7', 1000, 500)],
+                [
+                    logical(UPPER, 0, 0, false),
+                    logical(LOWER, 1440, 0, true),
+                    logical('DP-7', 100, 2304, false, 1),
+                ],
+            ),
+            3,
+            UPPER,
+            LOWER,
+        );
+
+    one(
+        'a monitor right of the panels, the other panel turned',
+        beside(2304, 2000),
+        LOWER,
+        'right-up',
+    );
+    one(
+        'a monitor below side by side panels slides to the panel that reaches the edge',
+        besideTall(),
+        UPPER,
+        'normal',
+    );
 
     return cases;
 }
