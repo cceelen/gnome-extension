@@ -35,7 +35,10 @@ jobs:
       - run: >-
           sudo apt-get update -q && sudo apt-get install -qy --no-install-recommends
           libglib2.0-bin zip unzip
-      - run: |
+      # `shell: bash` gives pipefail: without it, the step has the exit
+      # status of tee, and a test or the limit that fails passes.
+      - shell: bash
+        run: |
           node --test --experimental-test-coverage --test-coverage-exclude='**/tests/**' \
             --test-coverage-lines=100 --test-coverage-branches=100 --test-coverage-functions=100 \
             --test-reporter=spec --test-reporter-destination=stdout \
