@@ -60,6 +60,40 @@ test('from one side to the other', () => {
     assert.deepEqual(place(layout, LOWER), [1440, 0, 3]);
 });
 
+test('upside down: both panels turned by 180 degrees, the lower one on top', () => {
+    const layout = rotate(twoPanels(), 'bottom-up');
+
+    assert.deepEqual(place(layout, LOWER), [0, 0, 2]);
+    assert.deepEqual(place(layout, UPPER), [0, 1440, 2]);
+});
+
+test('upright again after upside down: the layout from before', () => {
+    const upright = twoPanels();
+    const turned = {...upright, logical: rotate(upright, 'bottom-up')};
+    const layout = rotate(turned, 'normal', uprightAfter(upright, 'bottom-up', null));
+
+    assert.deepEqual(place(layout, UPPER), [0, 0, 0]);
+    assert.deepEqual(place(layout, LOWER), [0, 1440, 0]);
+});
+
+test('from a side to upside down', () => {
+    const turned = twoPanels();
+
+    turned.logical = rotate(turned, 'left-up');
+
+    const layout = rotate(turned, 'bottom-up');
+
+    assert.deepEqual(place(layout, LOWER), [0, 0, 2]);
+    assert.deepEqual(place(layout, UPPER), [0, 1440, 2]);
+});
+
+test('upside down with the lower panel off: only the upper one is turned', () => {
+    const layout = rotate(lowerOff(), 'bottom-up');
+
+    assert.equal(layout.length, 1);
+    assert.deepEqual(place(layout, UPPER), [0, 0, 2]);
+});
+
 test('with the lower panel off, only the upper one is turned', () => {
     const layout = rotate(lowerOff(), 'left-up');
 
@@ -76,8 +110,7 @@ test('nothing to do when the layout is that one already', () => {
     assert.equal(rotate(turned, 'right-up'), null);
 });
 
-test('upside down and an unknown orientation change nothing', () => {
-    assert.equal(rotate(twoPanels(), 'bottom-up'), null);
+test('an unknown orientation changes nothing', () => {
     assert.equal(rotate(twoPanels(), 'undefined'), null);
     // Not an orientation, but the name of something that each object has.
     assert.equal(rotate(twoPanels(), 'constructor'), null);
@@ -452,13 +485,12 @@ test('the orientation comes from the turn of the built-in panels', () => {
 
     assert.equal(orientationOf(upright), 'normal');
     assert.equal(orientationOf(lowerOff()), 'normal');
-    for (const orientation of ['left-up', 'right-up'])
+    for (const orientation of ['left-up', 'right-up', 'bottom-up'])
         assert.equal(
             orientationOf({...upright, logical: rotate(upright, orientation)}),
             orientation,
         );
-    // The panels turned differently, or upside down: no position of the
-    // buttons.
+    // The panels turned differently: no orientation.
     const [upper, lower] = upright.logical;
 
     assert.equal(orientationOf({...upright, logical: [{...upper, transform: 1}, lower]}), null);
@@ -467,7 +499,7 @@ test('the orientation comes from the turn of the built-in panels', () => {
             ...upright,
             logical: [
                 {...upper, transform: 2},
-                {...lower, transform: 2},
+                {...lower, transform: 0},
             ],
         }),
         null,

@@ -3,13 +3,13 @@
 import {areaOf, DOWN, find, isRest, isValid, toOrigin} from './state.js';
 
 /**
- * The compositor's transform for each orientation of the sensor that turns
- * the panels: upright, and on the left or the right side. This is right for
+ * The compositor's transform for each orientation of the sensor: upright, on
+ * the left or the right side, and upside down. This is right for
  * a panel that is mounted upright in the machine. For a panel that is mounted
  * turned, the compositor's transform also has the turn of the panel in it,
  * and GetCurrentState does not tell that one.
  */
-const TRANSFORM = {normal: 0, 'left-up': 1, 'right-up': 3};
+const TRANSFORM = {normal: 0, 'left-up': 1, 'bottom-up': 2, 'right-up': 3};
 
 /** The built-in panels that are shown, each by itself. */
 function panelsOf(state) {
@@ -60,9 +60,11 @@ function restored(state, upright) {
  */
 function placed(state, panels, orientation) {
     const transform = TRANSFORM[orientation];
-    const across = orientation !== 'normal';
-    // The panels in the order they lie from the top left corner.
-    const order = orientation === 'left-up' ? fromTop(panels).reverse() : fromTop(panels);
+    const across = orientation === 'left-up' || orientation === 'right-up';
+    // The panels in the order they lie from the top left corner: the bottom
+    // one first where the bottom of the laptop is at the left or at the top.
+    const bottomFirst = orientation === 'left-up' || orientation === 'bottom-up';
+    const order = bottomFirst ? fromTop(panels).reverse() : fromTop(panels);
     const turned = (panel) => areaOf(state, {...panel, transform});
 
     /** The panels from (x, y) on; the size of the whole is returned too. */
@@ -138,6 +140,8 @@ function placed(state, panels, orientation) {
  * - Left side up: the panels turned and side by side, the bottom one on the
  *   left.
  * - Right side up: turned the other way, the bottom one on the right.
+ * - Upside down: the panels turned by 180 degrees and one below the other,
+ *   the bottom one on top.
  *
  * A laptop with one panel has that one turned. `upright` is the layout from
  * before the panels were turned: upright again, it is put back as it was if
@@ -164,8 +168,10 @@ export function rotate(state, orientation, upright = null) {
         ...placed(state, panels, orientation),
     ];
 
-    // Each of them turns a panel, so that none is the layout of now.
-    return ways.find((way) => way && isValid(state, way)) ?? null;
+    // Each of them turns a panel, so that none is the layout of now. The last
+    // one, all monitors in one row, is always valid: each has a mode, so each
+    // has a size, and in one row they touch without overlap.
+    return ways.find((way) => way && isValid(state, way));
 }
 
 /**

@@ -219,7 +219,7 @@ function layoutCases() {
     });
     add('an unknown heir: the first monitor is the primary', 'without', {
         state: N(two),
-        connector: UPPER,
+        connector: LOWER,
         heir: 'DP-9',
     });
     add('what is left moves to the origin', 'without', {
@@ -659,7 +659,15 @@ function rotationCases() {
         turnedTo(two, 'right-up'),
         'right-up',
     );
-    named('upside down changes nothing', two, 'bottom-up');
+    named('upside down: both panels turned by 180 degrees, the lower one on top', two, 'bottom-up');
+    named('from a side to upside down', leftUp, 'bottom-up');
+    named('upside down with the lower panel off', lowerOff(), 'bottom-up');
+    named(
+        'upright again after upside down: the layout from before',
+        turnedTo(two, 'bottom-up'),
+        'normal',
+        two.logical,
+    );
     named('an undefined orientation changes nothing', two, 'undefined');
     named('the name of something that each object has changes nothing', two, 'constructor');
     named('an empty orientation changes nothing', two, '');
@@ -669,7 +677,7 @@ function rotationCases() {
         'left-up',
     );
     for (const transform of [4, 5, 6, 7])
-        for (const orientation of ['normal', 'left-up', 'right-up']) {
+        for (const orientation of ['normal', 'left-up', 'right-up', 'bottom-up']) {
             const st = twoPanels();
 
             for (const panel of st.logical) panel.transform = transform;

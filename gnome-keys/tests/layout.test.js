@@ -101,6 +101,13 @@ test('taking the lower panel out leaves the upper one as the primary', () => {
     assert.equal(rest[0].y, 0);
 });
 
+test('the primary out with an heir that is not shown: the first monitor is the primary', () => {
+    const rest = without(twoPanels(), LOWER, 'DP-9');
+
+    assert.deepEqual(rest[0].connectors, [UPPER]);
+    assert.equal(rest[0].primary, true);
+});
+
 test('what is left moves to the origin', () => {
     const state = readState([
         1,

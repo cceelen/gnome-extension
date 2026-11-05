@@ -155,7 +155,7 @@
         }
       ]
     },
-    "connector": "eDP-1",
+    "connector": "eDP-2",
     "heir": "DP-9",
     "expect": [
       {
@@ -165,7 +165,7 @@
         "transform": 0,
         "primary": true,
         "connectors": [
-          "eDP-2"
+          "eDP-1"
         ]
       }
     ]
