@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.7.0](https://github.com/cceelen/gnome-extension/compare/v0.6.2...v0.7.0) (2026-11-05)
+
+
+### Features
+
+* declare GNOME Shell 51 ([f3ff192](https://github.com/cceelen/gnome-extension/commit/f3ff1922aaaf2771a034b0400493d24dc30fbcaa))
+* **rotation:** turn each built-in screen by hand ([0d46980](https://github.com/cceelen/gnome-extension/commit/0d46980f17d4f4b1f48def5333745b8977d43df3))
+
+
+### Bug Fixes
+
+* **rotation:** turn the panels when the laptop is upside down ([dea7776](https://github.com/cceelen/gnome-extension/commit/dea77763a62de1e8cce2cbe3a0741fc5d1d29c45))
+
 ## [0.6.2](https://github.com/cceelen/gnome-extension/compare/v0.6.1...v0.6.2) (2026-10-14)
 
 
