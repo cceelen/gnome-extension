@@ -1,5 +1,7 @@
-// Test cases that both implementations of the display logic must satisfy: the
-// JavaScript of the GNOME Shell extensions, and the Rust of the KDE parts. The
+// Test cases of the display logic, as plain data, so that another
+// implementation can run them too: the JavaScript of the GNOME Shell extensions
+// runs them here, and the Rust of the KDE packages in the repository
+// cceelen/asus-zenbook-duo-ux8406 (kde-common) runs a copy of the files. The
 // expected results come from the JavaScript, whose own tests check it
 // (write-vectors.js writes the cases to vectors/).
 //
