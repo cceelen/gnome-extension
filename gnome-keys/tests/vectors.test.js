@@ -1,5 +1,5 @@
-// The cases that the Rust of the KDE parts must satisfy too (see
-// gnome-common/tests/vectors.js), run against the JavaScript of this extension.
+// The shared test cases (refer to gnome-common/tests/vectors.js), run against
+// the JavaScript of this extension.
 // Run with `node --test`.
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
