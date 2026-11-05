@@ -61,8 +61,8 @@ pre-commit run --all-files
       /src/tests/shell/container.sh /src/dist/*.zip
   ```
 
-- shexli makes the checks of extensions.gnome.org on the zips. CI runs it in the
-  job `js`, and an error there fails the job. Locally, in a virtual environment
+- shexli makes the checks of extensions.gnome.org on the zips. CI runs it as the
+  check `shexli`, and an error there fails it. Locally, in a virtual environment
   with the pinned versions:
 
   ```sh
