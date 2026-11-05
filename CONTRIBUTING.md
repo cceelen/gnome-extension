@@ -101,7 +101,8 @@ the zip has a copy. Their tests share the fixtures in `gnome-common/tests`.
 - Logic goes in modules without GNOME imports, with tests that use plain data.
 - `shell-version` in `metadata.json` gets a GNOME Shell version when it is a
   final release that a large distribution (Fedora) ships. Development releases
-  are not declared.
+  are not declared. Add the version to `tests/ego/final-shell-versions.json` in
+  the same change: the check `shexli` takes only those versions as final.
 - The documents use Simplified Technical English. A claim without evidence is
   marked as not verified.
 
