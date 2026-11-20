@@ -1,4 +1,4 @@
-// ASUS Zenbook Duo UX8406: two keys of the detachable keyboard.
+// ASUS Zenbook Duo: two keys of the detachable keyboard.
 //
 // - The key right of F12 switches the lower panel on and off, by giving the
 //   compositor a layout without it and, at the next press, the layout from
@@ -8,7 +8,8 @@
 // - F8 swaps the windows of the two panels.
 //
 // The keyboard delivers these keys only with asus-zenbook-duo-ux8406-keyboard-bpf, as F18
-// (XF86Launch9) and F19. On any other model the extension binds nothing.
+// (XF86Launch9) and F19. On a model that machine.js does not list, the
+// extension binds nothing.
 //
 // It also tells the compositor which panel each touchscreen and pen belongs
 // to, where the user has set nothing: refer to touch.js.
@@ -21,10 +22,10 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import {applyLayout, currentState} from './display.js';
 import {toggle} from './layout.js';
+import {isSupportedModel} from './machine.js';
 import {find} from './state.js';
 import {assignments, controllersOf} from './touch.js';
 
-const MODEL = 'UX8406';
 const PRODUCT_NAME = '/sys/class/dmi/id/product_name';
 const UPPER = 'eDP-1';
 const LOWER = 'eDP-2';
@@ -38,13 +39,13 @@ const TOUCH_SETTINGS = [
 
 Gio._promisify(Gio.File.prototype, 'load_contents_async');
 
-/** Whether the machine is the UX8406, from its DMI product name. */
+/** Whether the machine is a supported model, from its DMI product name. */
 async function isModel(cancellable) {
     try {
         const [contents] =
             await Gio.File.new_for_path(PRODUCT_NAME).load_contents_async(cancellable);
 
-        return new TextDecoder().decode(contents).includes(MODEL);
+        return isSupportedModel(new TextDecoder().decode(contents));
     } catch {
         return false;
     }

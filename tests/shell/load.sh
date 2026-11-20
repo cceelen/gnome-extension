@@ -7,7 +7,7 @@
 #
 #   tests/shell/load.sh dist/*.shell-extension.zip
 #
-# The machine is not a UX8406 and has no sensor: the extensions load,
+# The machine is not a UX8406 or UX8407 and has no sensor: the extensions load,
 # enable and do nothing, which is what this test examines. Keys also has its
 # compiled schema read.
 set -eu

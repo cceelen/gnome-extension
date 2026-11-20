@@ -1,8 +1,8 @@
 # Zenbook Duo keys
 
-**A GNOME Shell extension for the ASUS Zenbook Duo UX8406. It gives a function
-to two keys of the keyboard that need the desktop, and gives each touchscreen
-its screen. The keys need the keyboard package from
+**A GNOME Shell extension for the ASUS Zenbook Duo UX8406 and UX8407. It gives a
+function to two keys of the keyboard that need the desktop, and gives each
+touchscreen its screen. The keys need the keyboard package from
 [asus-zenbook-duo-ux8406](https://github.com/cceelen/asus-zenbook-duo-ux8406).**
 
 ## Keys
@@ -58,7 +58,8 @@ For the keys, install the keyboard package: the
 tells how. A distribution package of this extension from that project has the
 same UUID; remove it.
 
-On a machine that is not a UX8406, the extension binds no key and sets nothing.
+On a machine that is not a UX8406 or UX8407, the extension binds no key and sets
+nothing. The UX8407 is not tested.
 
 GNOME Shell 45 to 51 is declared. Only GNOME Shell 50 is tested.
 
@@ -68,9 +69,9 @@ GNOME Shell 45 to 51 is declared. Only GNOME Shell 50 is tested.
 node --test gnome-keys/tests/*.test.js
 ```
 
-`layout.js` and `touch.js` have the logic and no GNOME imports; `display.js`
-calls `org.gnome.Mutter.DisplayConfig`. For the files that the two extensions
-share, and for an installation from the tree, refer to
+The logic is in the modules without GNOME imports, which the tests load;
+`display.js` calls `org.gnome.Mutter.DisplayConfig`. For the files that the two
+extensions share, and for an installation from the tree, refer to
 [CONTRIBUTING.md](../CONTRIBUTING.md#an-extension-from-the-tree).
 
 `tests/verify.js` is a manual check in a GNOME session. It asks Mutter to verify

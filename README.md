@@ -9,13 +9,13 @@
 **Two GNOME Shell extensions, published on extensions.gnome.org. Rotation turns
 the built-in screens of a laptop when it stands on its side or upside down, and
 turns each screen by hand. Keys gives a function to two keys of the ASUS Zenbook
-Duo UX8406 and gives each of its touchscreens its screen. They are tested on a
-UX8406CA with Fedora 44 and GNOME 50.**
+Duo UX8406 and UX8407 and gives each of its touchscreens its screen. They are
+tested on a UX8406CA with Fedora 44 and GNOME 50; the UX8407 is not tested.**
 
-| Extension                                            | For                | Needs                                                                                    |
-| ---------------------------------------------------- | ------------------ | ---------------------------------------------------------------------------------------- |
-| [Built-in screen rotation](gnome-rotation/README.md) | Any laptop         | GNOME Shell 45 or later, iio-sensor-proxy                                                |
-| [Zenbook Duo keys](gnome-keys/README.md)             | Zenbook Duo UX8406 | GNOME Shell 45 or later; for the keys, the keyboard package of [asus-zenbook-duo-ux8406] |
+| Extension                                            | For                        | Needs                                                                                    |
+| ---------------------------------------------------- | -------------------------- | ---------------------------------------------------------------------------------------- |
+| [Built-in screen rotation](gnome-rotation/README.md) | Any laptop                 | GNOME Shell 45 or later, iio-sensor-proxy                                                |
+| [Zenbook Duo keys](gnome-keys/README.md)             | Zenbook Duo UX8406, UX8407 | GNOME Shell 45 or later; for the keys, the keyboard package of [asus-zenbook-duo-ux8406] |
 
 The extensions came from [asus-zenbook-duo-ux8406], which has the other parts
 for the UX8406 (the guard, the second screen, the keyboard program) as

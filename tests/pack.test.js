@@ -24,6 +24,7 @@ const EXTENSIONS = {
         'display.js',
         'extension.js',
         'layout.js',
+        'machine.js',
         'metadata.json',
         'schemas/org.gnome.shell.extensions.asus-zenbook-duo-ux8406-keys.gschema.xml',
         'state.js',
